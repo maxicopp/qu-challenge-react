@@ -20,7 +20,7 @@ import {
 import { Search, Brightness4, Brightness7 } from '@mui/icons-material';
 import SkeletonRow from '../components/SkeletonRow';
 
-const Planet = lazy(() => import('../components/Planet'));
+const Planet = lazy(() => import('../components/Planet/index'));
 
 function App() {
   const { planets, loading } = usePlanets();

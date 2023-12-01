@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import planetsReducer from '../features/planets/planetsSlice';
+import planetsReducer from './planets/planetsSlice';
 
 export const store = configureStore({
   reducer: {

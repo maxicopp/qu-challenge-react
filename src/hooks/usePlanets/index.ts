@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPlanets } from '../features/planets/planetsSlice';
-import { AppDispatch, RootState } from '../store/store';
+import { AppDispatch, RootState } from '../../store/store';
+import { fetchPlanets } from '../../store/planets/planetsSlice';
 
 export const usePlanets = () => {
   const dispatch: AppDispatch = useDispatch();

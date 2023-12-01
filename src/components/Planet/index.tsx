@@ -15,9 +15,9 @@ import {
 import {
   fetchResidents,
   setResidentNames,
-} from '../features/planets/planetsSlice';
-import { PlanetProps } from '../interfaces/PlanetProps';
-import { AppDispatch, RootState } from '../store/store';
+} from '../../store/planets/planetsSlice';
+import { AppDispatch, RootState } from '../../store/store';
+import { PlanetProps } from '../../interfaces/PlanetProps';
 
 function Planet({
   name,
