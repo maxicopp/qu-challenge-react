@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { PlanetData } from '../../interfaces/PlanetData';
-import { PlanetProps } from '../../interfaces/PlanetProps';
+import { Planet, PlanetsResponse } from '../../interfaces/PlanetsResponse';
 
 interface PlanetsState {
   planets: PlanetData[];
@@ -11,10 +11,12 @@ export const fetchPlanets = createAsyncThunk(
   'planets/fetchPlanets',
   async () => {
     const response = await fetch('https://swapi.dev/api/planets/');
-    const data = await response.json();
-    return data.results.map((planet: PlanetProps) => ({
+    const data: PlanetsResponse = await response.json();
+    return data.results.map((planet: Planet) => ({
       name: planet.name,
-      population: planet.population,
+      population: isNaN(parseInt(planet.population, 10))
+        ? planet.population
+        : parseInt(planet.population, 10),
       climate: planet.climate,
       residents: planet.residents,
     }));
