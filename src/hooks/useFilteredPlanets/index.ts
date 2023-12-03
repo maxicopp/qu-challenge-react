@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react';
-import { usePlanets } from '../usePlanets';
+import { PlanetData } from '../../interfaces/PlanetData';
 
-export function useFilteredPlanets(search: string) {
-  const { planets, loading } = usePlanets();
+export function useFilteredPlanets(
+  search: string,
+  planets: PlanetData[],
+  loading: boolean
+) {
   const [filteredPlanets, setFilteredPlanets] = useState(planets);
 
   useEffect(() => {

@@ -7,6 +7,7 @@ interface PlanetsState {
   residentNames: Record<string, string[]>;
   loading: boolean;
   pendingRequests: number;
+  initialLoad: boolean;
 }
 
 export const fetchPlanets = createAsyncThunk(
@@ -41,6 +42,7 @@ const initialState: PlanetsState = {
   residentNames: {},
   loading: false,
   pendingRequests: 0,
+  initialLoad: false,
 };
 
 const planetsSlice = createSlice({
@@ -62,6 +64,7 @@ const planetsSlice = createSlice({
         state.planets = action.payload;
         state.pendingRequests -= 1;
         state.loading = state.pendingRequests > 0;
+        state.initialLoad = true;
       })
       .addCase(fetchPlanets.rejected, (state) => {
         state.pendingRequests -= 1;

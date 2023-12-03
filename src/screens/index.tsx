@@ -5,12 +5,19 @@ import Layout from '../components/Layout';
 import PlanetTable from '../components/PlanetTable';
 import SearchBar from '../components/SearchBar';
 import ThemeToggle from '../components/ThemeToggle';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store/store';
+import { usePlanets } from '../hooks/usePlanets';
 
 function App() {
   const [search, setSearch] = useState('');
-  const { filteredPlanets, loading } = useFilteredPlanets(search);
+  const { planets, loading } = usePlanets();
+  const { filteredPlanets } = useFilteredPlanets(search, planets, loading);
+  const initialLoad = useSelector(
+    (state: RootState) => state.planets.initialLoad
+  );
 
-  if (loading) {
+  if (loading && !initialLoad) {
     return (
       <Layout>
         <Box

@@ -12,10 +12,7 @@ import {
   ListItem,
   ListItemText,
 } from '@mui/material';
-import {
-  fetchResidents,
-  setResidentNames,
-} from '../../store/planets/planetsSlice';
+import { fetchResidents } from '../../store/planets/planetsSlice';
 import { AppDispatch, RootState } from '../../store/store';
 import { PlanetProps } from '../../interfaces/PlanetProps';
 
@@ -36,11 +33,7 @@ function Planet({
   const handleRowClick = () => {
     setOpen(!open);
     if (!open && residentNames[name] === undefined) {
-      if (residents.length > 0) {
-        dispatch(fetchResidents({ planetName: name, urls: residents }));
-      } else {
-        dispatch(setResidentNames({ planetName: name, residentNames: [] }));
-      }
+      dispatch(fetchResidents({ planetName: name, urls: residents }));
     }
   };
 
