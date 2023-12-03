@@ -10,6 +10,7 @@ import MainLayout from './MainLayout';
 import PlanetTable from '../components/PlanetTable';
 import { useAppLogic } from '../hooks/useAppLogic';
 import Films from '../components/Films';
+import People from '../components/People';
 
 function App() {
   const {
@@ -47,6 +48,14 @@ function App() {
           element={
             <MainLayout>
               <Films />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/people"
+          element={
+            <MainLayout>
+              <People />
             </MainLayout>
           }
         />

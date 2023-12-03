@@ -73,6 +73,9 @@ function MainLayout({
             <MenuItem onClick={() => handleMenuItemClick('/films')}>
               Films
             </MenuItem>
+            <MenuItem onClick={() => handleMenuItemClick('/people')}>
+              People
+            </MenuItem>
           </Menu>
           <Box
             sx={{
