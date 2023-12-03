@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
-import { Box, CircularProgress } from '@mui/material';
+import {
+  Box,
+  CircularProgress,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+} from '@mui/material';
 import { useFilteredPlanets } from '../hooks/useFilteredPlanets';
 import Layout from '../components/Layout';
 import PlanetTable from '../components/PlanetTable';
@@ -8,14 +14,39 @@ import ThemeToggle from '../components/ThemeToggle';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
 import { usePlanets } from '../hooks/usePlanets';
+import { PlanetData } from '../interfaces/PlanetData';
+
+type PlanetDataKeys = Extract<keyof PlanetData, string>;
 
 function App() {
   const [search, setSearch] = useState('');
+  const [sortKey, setSortKey] = useState('name');
   const { planets, loading } = usePlanets();
   const { filteredPlanets } = useFilteredPlanets(search, planets, loading);
   const initialLoad = useSelector(
     (state: RootState) => state.planets.initialLoad
   );
+
+  const handleSortKeyChange = (event: SelectChangeEvent<string>) => {
+    setSortKey(event.target.value as PlanetDataKeys);
+  };
+
+  const sortedPlanets = [...filteredPlanets].sort((a, b) => {
+    const aValue = a[sortKey as PlanetDataKeys];
+    const bValue = b[sortKey as PlanetDataKeys];
+
+    if (sortKey === 'population') {
+      if (aValue === 'unknown') return 1;
+      if (bValue === 'unknown') return -1;
+      return Number(aValue) - Number(bValue);
+    }
+
+    if (typeof aValue === 'string' && typeof bValue === 'string') {
+      return aValue.localeCompare(bValue);
+    }
+
+    return 0;
+  });
 
   if (loading && !initialLoad) {
     return (
@@ -49,8 +80,13 @@ function App() {
       >
         <ThemeToggle />
         <SearchBar search={search} setSearch={setSearch} />
+        <Select value={sortKey} onChange={handleSortKeyChange}>
+          <MenuItem value="name">Name</MenuItem>
+          <MenuItem value="population">Population</MenuItem>
+          <MenuItem value="climate">Climate</MenuItem>
+        </Select>
       </Box>
-      <PlanetTable filteredPlanets={filteredPlanets} />
+      <PlanetTable filteredPlanets={sortedPlanets} />
     </Layout>
   );
 }

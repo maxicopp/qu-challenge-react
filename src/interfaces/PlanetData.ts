@@ -3,4 +3,5 @@ export interface PlanetData {
   name: string;
   population: number | string;
   residents: string[];
+  [key: string]: string | number | string[];
 }

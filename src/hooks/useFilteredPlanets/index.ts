@@ -6,15 +6,19 @@ export function useFilteredPlanets(
   planets: PlanetData[],
   loading: boolean
 ) {
-  const [filteredPlanets, setFilteredPlanets] = useState(planets);
+  const [filteredPlanets, setFilteredPlanets] = useState<PlanetData[]>([]);
 
   useEffect(() => {
-    setFilteredPlanets(
-      planets.filter((planet) =>
-        planet.name.toLowerCase().includes(search.toLowerCase())
-      )
-    );
-  }, [planets, search]);
+    if (!loading) {
+      setFilteredPlanets(
+        planets.filter((planet) =>
+          Object.values(planet).some((value) =>
+            value.toString().toLowerCase().includes(search.toLowerCase())
+          )
+        )
+      );
+    }
+  }, [planets, search, loading]);
 
   return { filteredPlanets, loading };
 }
