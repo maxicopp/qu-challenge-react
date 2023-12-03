@@ -1,20 +1,21 @@
 import React from 'react';
-import { Skeleton, TableRow, TableCell } from '@mui/material';
+import { Skeleton } from '@mui/material';
+import { TableRow, TableCell } from '@mui/material';
 
-const SkeletonRow = () => {
+function SkeletonRow() {
   return (
     <TableRow>
       <TableCell>
-        <Skeleton variant="text" />
+        <Skeleton />
       </TableCell>
       <TableCell>
-        <Skeleton variant="text" />
+        <Skeleton />
       </TableCell>
       <TableCell>
-        <Skeleton variant="text" />
+        <Skeleton />
       </TableCell>
     </TableRow>
   );
-};
+}
 
 export default SkeletonRow;
