@@ -5,6 +5,8 @@ import { Planet, PlanetsResponse } from '../../interfaces/PlanetsResponse';
 interface PlanetsState {
   planets: PlanetData[];
   residentNames: Record<string, string[]>;
+  loading: boolean;
+  pendingRequests: number;
 }
 
 export const fetchPlanets = createAsyncThunk(
@@ -37,6 +39,8 @@ export const fetchResidents = createAsyncThunk(
 const initialState: PlanetsState = {
   planets: [],
   residentNames: {},
+  loading: false,
+  pendingRequests: 0,
 };
 
 const planetsSlice = createSlice({
@@ -49,13 +53,34 @@ const planetsSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchPlanets.fulfilled, (state, action) => {
-      state.planets = action.payload;
-    });
-    builder.addCase(fetchResidents.fulfilled, (state, action) => {
-      state.residentNames[action.payload.planetName] =
-        action.payload.residentNames;
-    });
+    builder
+      .addCase(fetchPlanets.pending, (state) => {
+        state.pendingRequests += 1;
+        state.loading = state.pendingRequests > 0;
+      })
+      .addCase(fetchPlanets.fulfilled, (state, action) => {
+        state.planets = action.payload;
+        state.pendingRequests -= 1;
+        state.loading = state.pendingRequests > 0;
+      })
+      .addCase(fetchPlanets.rejected, (state) => {
+        state.pendingRequests -= 1;
+        state.loading = state.pendingRequests > 0;
+      })
+      .addCase(fetchResidents.pending, (state) => {
+        state.pendingRequests += 1;
+        state.loading = state.pendingRequests > 0;
+      })
+      .addCase(fetchResidents.fulfilled, (state, action) => {
+        state.residentNames[action.payload.planetName] =
+          action.payload.residentNames;
+        state.pendingRequests -= 1;
+        state.loading = state.pendingRequests > 0;
+      })
+      .addCase(fetchResidents.rejected, (state) => {
+        state.pendingRequests -= 1;
+        state.loading = state.pendingRequests > 0;
+      });
   },
 });
 

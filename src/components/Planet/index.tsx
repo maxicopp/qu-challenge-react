@@ -24,8 +24,8 @@ function Planet({
   population,
   climate,
   residents,
-  darkMode,
-}: Readonly<PlanetProps>) {
+}: Omit<Readonly<PlanetProps>, 'darkMode'>) {
+  const darkMode = useSelector((state: RootState) => state.theme.darkMode);
   const dispatch: AppDispatch = useDispatch();
   const residentNames = useSelector(
     (state: RootState) => state.planets.residentNames
