@@ -1,10 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LoadingLayout from './LoadingLayout';
 import { useAppLogic } from '../hooks/useAppLogic';
-import PlanetsRoute from './PlanetsRoute';
-import FilmsRoute from './FilmsRoute';
-import PeopleRoute from './PeopleRoute';
-import RedirectToPlanets from '../utils/RedirectToPlanets';
+import { routes } from '../constants/routes';
 
 function App() {
   const { loading, initialLoad } = useAppLogic();
@@ -16,10 +13,9 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/planets" element={<PlanetsRoute />} />
-        <Route path="/films" element={<FilmsRoute />} />
-        <Route path="/people" element={<PeopleRoute />} />
-        <Route path="/" element={<RedirectToPlanets />} />
+        {routes.map(({ path, component: Component }) => (
+          <Route key={path} path={path} element={<Component />} />
+        ))}
       </Routes>
     </Router>
   );
