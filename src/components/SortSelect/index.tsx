@@ -7,7 +7,7 @@ interface SortSelectProps {
   handleSortKeyChange: (event: SelectChangeEvent<string>) => void;
 }
 
-function SortSelect({ sortKey, handleSortKeyChange }: SortSelectProps) {
+function SortSelect({ sortKey, handleSortKeyChange }: Readonly<SortSelectProps>) {
   return (
     <Select value={sortKey} onChange={handleSortKeyChange}>
       <MenuItem value="name">Name</MenuItem>

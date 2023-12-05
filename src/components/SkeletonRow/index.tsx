@@ -1,6 +1,5 @@
 import React from 'react';
-import { Skeleton } from '@mui/material';
-import { TableRow, TableCell } from '@mui/material';
+import { Skeleton, TableRow, TableCell } from '@mui/material';
 
 function SkeletonRow() {
   return (

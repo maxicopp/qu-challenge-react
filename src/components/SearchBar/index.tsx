@@ -6,7 +6,7 @@ interface SearchBarProps {
   setSearch: React.Dispatch<React.SetStateAction<string>>;
 }
 
-function SearchBar({ search, setSearch }: SearchBarProps) {
+function SearchBar({ search, setSearch }: Readonly<SearchBarProps>) {
   return (
     <TextField
       label="Search"

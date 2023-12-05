@@ -1,27 +1,13 @@
-import React, { useEffect } from 'react';
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useNavigate,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LoadingLayout from './LoadingLayout';
-import MainLayout from './MainLayout';
-import PlanetTable from '../components/PlanetTable';
 import { useAppLogic } from '../hooks/useAppLogic';
-import Films from '../components/Films';
-import People from '../components/People';
+import PlanetsRoute from './PlanetsRoute';
+import FilmsRoute from './FilmsRoute';
+import PeopleRoute from './PeopleRoute';
+import RedirectToPlanets from './RedirectToPlanets';
 
 function App() {
-  const {
-    search,
-    setSearch,
-    sortKey,
-    handleSortKeyChange,
-    sortedPlanets,
-    loading,
-    initialLoad,
-  } = useAppLogic();
+  const { loading, initialLoad } = useAppLogic();
 
   if (loading && !initialLoad) {
     return <LoadingLayout />;
@@ -30,48 +16,13 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route
-          path="/planets"
-          element={
-            <MainLayout
-              search={search}
-              setSearch={setSearch}
-              sortKey={sortKey}
-              handleSortKeyChange={handleSortKeyChange}
-            >
-              <PlanetTable filteredPlanets={sortedPlanets} />
-            </MainLayout>
-          }
-        />
-        <Route
-          path="/films"
-          element={
-            <MainLayout>
-              <Films />
-            </MainLayout>
-          }
-        />
-        <Route
-          path="/people"
-          element={
-            <MainLayout>
-              <People />
-            </MainLayout>
-          }
-        />
+        <Route path="/planets" element={<PlanetsRoute />} />
+        <Route path="/films" element={<FilmsRoute />} />
+        <Route path="/people" element={<PeopleRoute />} />
         <Route path="/" element={<RedirectToPlanets />} />
       </Routes>
     </Router>
   );
-}
-
-function RedirectToPlanets() {
-  const navigate = useNavigate();
-  useEffect(() => {
-    navigate('/planets');
-  }, [navigate]);
-
-  return null;
 }
 
 export default App;

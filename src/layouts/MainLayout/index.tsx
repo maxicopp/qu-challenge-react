@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Dispatch, ReactNode, SetStateAction } from 'react';
 import {
   Box,
   SelectChangeEvent,
@@ -10,7 +10,6 @@ import {
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useNavigate } from 'react-router-dom';
-import { Dispatch, ReactNode, SetStateAction } from 'react';
 import Layout from '../../components/Layout';
 import SearchBar from '../../components/SearchBar';
 import ThemeToggle from '../../components/ThemeToggle';
@@ -33,7 +32,7 @@ function MainLayout({
   sortKey,
   handleSortKeyChange,
   children,
-}: MainLayoutProps) {
+}: Readonly<MainLayoutProps>) {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const isDarkMode = useSelector((state: RootState) => state.theme.darkMode);
