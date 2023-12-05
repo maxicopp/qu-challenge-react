@@ -17,7 +17,7 @@ export function useAppLogic() {
   );
 
   const handleSortKeyChange = (event: SelectChangeEvent<string>) => {
-    setSortKey(event.target.value as PlanetDataKeys);
+    setSortKey(event.target.value);
   };
 
   const sortedPlanets = sortPlanets(filteredPlanets, sortKey);

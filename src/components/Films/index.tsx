@@ -3,10 +3,15 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Box,
-  Card,
-  CardContent,
   CircularProgress,
   Container,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
   Typography,
 } from '@mui/material';
 import { AppDispatch, RootState } from '../../store/store';
@@ -36,19 +41,26 @@ function Films() {
           <CircularProgress />
         </Box>
       ) : (
-        films.map((film) => (
-          <Card key={film.title}>
-            <CardContent>
-              <Typography variant="h5">{film.title}</Typography>
-              <Typography variant="subtitle1">
-                {t('directedBy')} {film.director}
-              </Typography>
-              <Typography variant="subtitle2">
-                {t('releasedOn')} {film.release_date}
-              </Typography>
-            </CardContent>
-          </Card>
-        ))
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>{t('title')}</TableCell>
+                <TableCell>{t('directedBy')}</TableCell>
+                <TableCell>{t('releasedOn')}</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {films.map((film) => (
+                <TableRow key={film.title}>
+                  <TableCell>{film.title}</TableCell>
+                  <TableCell>{film.director}</TableCell>
+                  <TableCell>{film.release_date}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       )}
     </Container>
   );

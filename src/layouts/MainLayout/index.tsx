@@ -1,5 +1,7 @@
 import React, { useState, Dispatch, ReactNode, SetStateAction } from 'react';
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import {
   Box,
   SelectChangeEvent,
@@ -11,14 +13,14 @@ import {
   Select,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import { useNavigate } from 'react-router-dom';
 import Layout from '../../components/Layout';
 import SearchBar from '../../components/SearchBar';
 import ThemeToggle from '../../components/ThemeToggle';
 import SortSelect from '../../components/SortSelect';
 import { PlanetDataKeys } from '../../interfaces/PlanetDataKeys';
-import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
+
+import styles from './styles';
 
 const DEFAULT_LANG = 'en';
 
@@ -41,7 +43,10 @@ function MainLayout({
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const isDarkMode = useSelector((state: RootState) => state.theme.darkMode);
-  const [lang, setLang] = useState(i18n.language || DEFAULT_LANG);
+  const initialLang = ['en', 'es'].includes(i18n.language)
+    ? i18n.language
+    : DEFAULT_LANG;
+  const [lang, setLang] = useState(initialLang);
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -90,17 +95,7 @@ function MainLayout({
               {t('people')}
             </MenuItem>
           </Menu>
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'space-around',
-              alignItems: 'center',
-              marginBottom: 2,
-              marginTop: 2,
-              paddingLeft: 2,
-              paddingRight: 2,
-            }}
-          >
+          <Box sx={styles.boxStyles}>
             {search !== undefined && setSearch !== undefined && (
               <Box marginRight={2}>
                 <SearchBar search={search} setSearch={setSearch} />
