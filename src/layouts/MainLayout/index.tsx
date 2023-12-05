@@ -1,4 +1,5 @@
 import React, { useState, Dispatch, ReactNode, SetStateAction } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Box,
   SelectChangeEvent,
@@ -7,6 +8,7 @@ import {
   IconButton,
   Menu,
   MenuItem,
+  Select,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useNavigate } from 'react-router-dom';
@@ -17,6 +19,8 @@ import SortSelect from '../../components/SortSelect';
 import { PlanetDataKeys } from '../../interfaces/PlanetDataKeys';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
+
+const DEFAULT_LANG = 'en';
 
 interface MainLayoutProps {
   search?: string;
@@ -33,9 +37,11 @@ function MainLayout({
   handleSortKeyChange,
   children,
 }: Readonly<MainLayoutProps>) {
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const isDarkMode = useSelector((state: RootState) => state.theme.darkMode);
+  const [lang, setLang] = useState(i18n.language || DEFAULT_LANG);
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -49,6 +55,14 @@ function MainLayout({
     navigate(path);
     handleMenuClose();
   };
+
+  const handleLangChange = (event: SelectChangeEvent) => {
+    const newLang = event.target.value;
+    setLang(newLang);
+    i18n.changeLanguage(newLang);
+    localStorage.setItem('i18nextLng', newLang);
+  };
+
   return (
     <Layout>
       <AppBar position="static" color={isDarkMode ? 'primary' : 'inherit'}>
@@ -67,13 +81,13 @@ function MainLayout({
             onClose={handleMenuClose}
           >
             <MenuItem onClick={() => handleMenuItemClick('/planets')}>
-              Planets
+              {t('planets')}
             </MenuItem>
             <MenuItem onClick={() => handleMenuItemClick('/films')}>
-              Films
+              {t('films')}
             </MenuItem>
             <MenuItem onClick={() => handleMenuItemClick('/people')}>
-              People
+              {t('people')}
             </MenuItem>
           </Menu>
           <Box
@@ -102,7 +116,13 @@ function MainLayout({
             )}
           </Box>
           <Box marginLeft={'auto'}>
-            <ThemeToggle />
+            <Box display="flex" alignItems="center">
+              <Select value={lang} onChange={handleLangChange}>
+                <MenuItem value="en">🇺🇸</MenuItem>
+                <MenuItem value="es">🇦🇷</MenuItem>
+              </Select>
+              <ThemeToggle />
+            </Box>
           </Box>
         </Toolbar>
       </AppBar>

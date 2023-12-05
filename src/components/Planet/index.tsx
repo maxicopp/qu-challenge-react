@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import {
   TableRow,
   TableCell,
@@ -22,6 +23,7 @@ function Planet({
   climate,
   residents,
 }: Readonly<Omit<PlanetProps, 'darkMode'>>) {
+  const { t } = useTranslation();
   const darkMode = useSelector((state: RootState) => state.theme.darkMode);
   const dispatch: AppDispatch = useDispatch();
   const residentNames = useSelector(
@@ -64,7 +66,7 @@ function Planet({
                 }}
               >
                 <Typography variant="subtitle1">
-                  Este planeta parece desolado, ¡no se encontraron residentes!
+                  {t('desertedPlanet')}
                 </Typography>
               </Paper>
             )}
@@ -72,7 +74,7 @@ function Planet({
               {residentNames[name]?.length > 0 && (
                 <>
                   <Typography variant="h6" gutterBottom component="div">
-                    Residents
+                    {t('residents')}
                   </Typography>
                   <List>
                     {residentNames[name]?.map((residentName: string) => (

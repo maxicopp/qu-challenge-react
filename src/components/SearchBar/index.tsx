@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Search } from '@mui/icons-material';
 import { InputAdornment, TextField } from '@mui/material';
 
@@ -7,9 +8,10 @@ interface SearchBarProps {
 }
 
 function SearchBar({ search, setSearch }: Readonly<SearchBarProps>) {
+  const { t } = useTranslation();
   return (
     <TextField
-      label="Search"
+      label={t('search')}
       value={search}
       onChange={(e) => setSearch(e.target.value)}
       InputProps={{

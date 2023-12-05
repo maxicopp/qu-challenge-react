@@ -13,10 +13,12 @@ import {
   Typography,
 } from '@mui/material';
 import { fetchPeopleThunk } from '../../store/people/peopleSlice';
+import { useTranslation } from 'react-i18next';
 
 function People() {
   const dispatch: AppDispatch = useDispatch();
   const people = useSelector((state: RootState) => state.people.people);
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (people.length === 0) {
@@ -26,16 +28,16 @@ function People() {
 
   return (
     <Container>
-      <Typography variant="h2">People</Typography>
+      <Typography variant="h2">{t('people')}</Typography>
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell align="right">Height</TableCell>
-              <TableCell align="right">Mass</TableCell>
-              <TableCell align="right">Hair Color</TableCell>
-              <TableCell align="right">Skin Color</TableCell>
+              <TableCell>{t('name')}</TableCell>
+              <TableCell align="right">{t('height')}</TableCell>
+              <TableCell align="right">{t('mass')}</TableCell>
+              <TableCell align="right">{t('hairColor')}</TableCell>
+              <TableCell align="right">{t('skinColor')}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

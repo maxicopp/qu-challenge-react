@@ -10,6 +10,7 @@ import {
   Container,
 } from '@mui/material';
 import { Suspense } from 'react';
+import { useTranslation } from 'react-i18next';
 import SkeletonRow from '../SkeletonRow';
 import Planet from '../Planet';
 import { PlanetData } from '../../interfaces/PlanetData';
@@ -18,17 +19,18 @@ interface PlanetTableProps {
   filteredPlanets: PlanetData[];
 }
 
-function PlanetTable({ filteredPlanets }: PlanetTableProps) {
+function PlanetTable({ filteredPlanets }: Readonly<PlanetTableProps>) {
+  const { t } = useTranslation();
   return (
     <Container>
-      <Typography variant="h2">Planets</Typography>
+      <Typography variant="h2">{t('planets')}</Typography>
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell>Population</TableCell>
-              <TableCell>Climate</TableCell>
+              <TableCell>{t('name')}</TableCell>
+              <TableCell>{t('population')}</TableCell>
+              <TableCell>{t('climate')}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

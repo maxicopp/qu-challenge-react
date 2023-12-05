@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Box,
@@ -12,6 +13,7 @@ import { AppDispatch, RootState } from '../../store/store';
 import { fetchFilmsThunk } from '../../store/films/filmsSlice';
 
 function Films() {
+  const { t } = useTranslation();
   const dispatch: AppDispatch = useDispatch();
   const { films, loading } = useSelector((state: RootState) => state.films);
 
@@ -23,7 +25,7 @@ function Films() {
 
   return (
     <Container>
-      <Typography variant="h2">Films</Typography>
+      <Typography variant="h2">{t('films')}</Typography>
       {loading ? (
         <Box
           display="flex"
@@ -39,10 +41,10 @@ function Films() {
             <CardContent>
               <Typography variant="h5">{film.title}</Typography>
               <Typography variant="subtitle1">
-                Directed by {film.director}
+                {t('directedBy')} {film.director}
               </Typography>
               <Typography variant="subtitle2">
-                Released on {film.release_date}
+                {t('releasedOn')} {film.release_date}
               </Typography>
             </CardContent>
           </Card>
