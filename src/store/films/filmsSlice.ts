@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { fetchFilms } from '../../api/filmsApi';
 
-interface Film {
+export interface Film {
   title: string;
   episode_id: number;
   opening_crawl: string;
@@ -17,26 +18,22 @@ interface Film {
   url: string;
 }
 
-interface FilmsState {
+export interface FilmsState {
   films: Film[];
   loading: boolean;
 }
 
-export const fetchFilms = createAsyncThunk('films/fetchFilms', async () => {
-  const response = await fetch('https://swapi.dev/api/films/');
-  const data = await response.json();
-  return data.results;
-});
+export const fetchFilmsThunk = createAsyncThunk('films/fetchFilms', fetchFilms);
 
 const filmsSlice = createSlice({
   name: 'films',
   initialState: { films: [], loading: false } as FilmsState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchFilms.pending, (state) => {
+    builder.addCase(fetchFilmsThunk.pending, (state) => {
       state.loading = true;
     });
-    builder.addCase(fetchFilms.fulfilled, (state, action) => {
+    builder.addCase(fetchFilmsThunk.fulfilled, (state, action) => {
       state.films = action.payload;
       state.loading = false;
     });

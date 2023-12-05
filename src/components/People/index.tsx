@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPeople } from '../../store/people/peopleSlice';
 import { AppDispatch, RootState } from '../../store/store';
 import {
   TableContainer,
@@ -13,6 +12,7 @@ import {
   Container,
   Typography,
 } from '@mui/material';
+import { fetchPeopleThunk } from '../../store/people/peopleSlice';
 
 function People() {
   const dispatch: AppDispatch = useDispatch();
@@ -20,7 +20,7 @@ function People() {
 
   useEffect(() => {
     if (people.length === 0) {
-      dispatch(fetchPeople());
+      dispatch(fetchPeopleThunk());
     }
   }, [dispatch, people]);
 

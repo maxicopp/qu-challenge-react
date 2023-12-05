@@ -4,7 +4,7 @@ import { useAppLogic } from '../hooks/useAppLogic';
 import PlanetsRoute from './PlanetsRoute';
 import FilmsRoute from './FilmsRoute';
 import PeopleRoute from './PeopleRoute';
-import RedirectToPlanets from './RedirectToPlanets';
+import RedirectToPlanets from '../utils/RedirectToPlanets';
 
 function App() {
   const { loading, initialLoad } = useAppLogic();

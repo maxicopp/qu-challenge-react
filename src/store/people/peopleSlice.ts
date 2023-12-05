@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { fetchPeople } from '../../api/peopleApi';
 
-interface Person {
+export interface Person {
   name: string;
   height: string;
   mass: string;
@@ -19,33 +20,32 @@ interface Person {
   url: string;
 }
 
-interface PeopleResponse {
+export interface PeopleResponse {
   count: number;
   next: string | null;
   previous: string | null;
   results: Person[];
 }
 
-interface PeopleState {
+export interface PeopleState {
   people: Person[];
   loading: boolean;
 }
 
-export const fetchPeople = createAsyncThunk('people/fetchPeople', async () => {
-  const response = await fetch('https://swapi.dev/api/people/');
-  const data: PeopleResponse = await response.json();
-  return data.results;
-});
+export const fetchPeopleThunk = createAsyncThunk(
+  'people/fetchPeople',
+  fetchPeople
+);
 
 const peopleSlice = createSlice({
   name: 'people',
   initialState: { people: [], loading: false } as PeopleState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchPeople.pending, (state) => {
+    builder.addCase(fetchPeopleThunk.pending, (state) => {
       state.loading = true;
     });
-    builder.addCase(fetchPeople.fulfilled, (state, action) => {
+    builder.addCase(fetchPeopleThunk.fulfilled, (state, action) => {
       state.people = action.payload;
       state.loading = false;
     });

@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { PlanetData } from '../../interfaces/PlanetData';
-import { Planet, PlanetsResponse } from '../../interfaces/PlanetsResponse';
+import { fetchPlanets, fetchResidents } from '../../api/planetsApi';
 
 interface PlanetsState {
   planets: PlanetData[];
@@ -10,31 +10,14 @@ interface PlanetsState {
   initialLoad: boolean;
 }
 
-export const fetchPlanets = createAsyncThunk(
+export const fetchPlanetsThunk = createAsyncThunk(
   'planets/fetchPlanets',
-  async () => {
-    const response = await fetch('https://swapi.dev/api/planets/');
-    const data: PlanetsResponse = await response.json();
-    return data.results.map((planet: Planet) => ({
-      name: planet.name,
-      population: isNaN(parseInt(planet.population, 10))
-        ? planet.population
-        : parseInt(planet.population, 10),
-      climate: planet.climate,
-      residents: planet.residents,
-    }));
-  }
+  fetchPlanets
 );
 
-export const fetchResidents = createAsyncThunk(
+export const fetchResidentsThunk = createAsyncThunk(
   'planets/fetchResidents',
-  async ({ planetName, urls }: { planetName: string; urls: string[] }) => {
-    const responses = await Promise.all(urls.map((url) => fetch(url)));
-    const data = await Promise.all(
-      responses.map((response) => response.json())
-    );
-    return { planetName, residentNames: data.map((resident) => resident.name) };
-  }
+  fetchResidents
 );
 
 const initialState: PlanetsState = {
@@ -56,31 +39,31 @@ const planetsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchPlanets.pending, (state) => {
+      .addCase(fetchPlanetsThunk.pending, (state) => {
         state.pendingRequests += 1;
         state.loading = state.pendingRequests > 0;
       })
-      .addCase(fetchPlanets.fulfilled, (state, action) => {
+      .addCase(fetchPlanetsThunk.fulfilled, (state, action) => {
         state.planets = action.payload;
         state.pendingRequests -= 1;
         state.loading = state.pendingRequests > 0;
         state.initialLoad = true;
       })
-      .addCase(fetchPlanets.rejected, (state) => {
+      .addCase(fetchPlanetsThunk.rejected, (state) => {
         state.pendingRequests -= 1;
         state.loading = state.pendingRequests > 0;
       })
-      .addCase(fetchResidents.pending, (state) => {
+      .addCase(fetchResidentsThunk.pending, (state) => {
         state.pendingRequests += 1;
         state.loading = state.pendingRequests > 0;
       })
-      .addCase(fetchResidents.fulfilled, (state, action) => {
+      .addCase(fetchResidentsThunk.fulfilled, (state, action) => {
         state.residentNames[action.payload.planetName] =
           action.payload.residentNames;
         state.pendingRequests -= 1;
         state.loading = state.pendingRequests > 0;
       })
-      .addCase(fetchResidents.rejected, (state) => {
+      .addCase(fetchResidentsThunk.rejected, (state) => {
         state.pendingRequests -= 1;
         state.loading = state.pendingRequests > 0;
       });

@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store/store';
-import { fetchPlanets } from '../../store/planets/planetsSlice';
 import { AsyncThunkAction } from '@reduxjs/toolkit';
 import { PlanetData } from '../../interfaces/PlanetData';
+import { fetchPlanetsThunk } from '../../store/planets/planetsSlice';
 
 export function usePlanets() {
   const dispatch: AppDispatch = useDispatch();
@@ -14,7 +14,7 @@ export function usePlanets() {
   useEffect(() => {
     if (!initialLoad) {
       const fetchPlanetsAction: AsyncThunkAction<PlanetData[], void, {}> =
-        fetchPlanets();
+        fetchPlanetsThunk();
       dispatch(fetchPlanetsAction);
     }
   }, [dispatch, initialLoad]);

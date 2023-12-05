@@ -5,7 +5,7 @@ interface ThemeState {
 }
 
 const initialState: ThemeState = {
-  darkMode: JSON.parse(localStorage.getItem('darkMode') || 'false'),
+  darkMode: JSON.parse(localStorage.getItem('darkMode') ?? 'false'),
 };
 
 export const themeSlice = createSlice({

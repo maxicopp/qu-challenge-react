@@ -12,16 +12,16 @@ import {
   ListItem,
   ListItemText,
 } from '@mui/material';
-import { fetchResidents } from '../../store/planets/planetsSlice';
 import { AppDispatch, RootState } from '../../store/store';
 import { PlanetProps } from '../../interfaces/PlanetProps';
+import { fetchResidentsThunk } from '../../store/planets/planetsSlice';
 
 function Planet({
   name,
   population,
   climate,
   residents,
-}: Omit<Readonly<PlanetProps>, 'darkMode'>) {
+}: Readonly<Omit<PlanetProps, 'darkMode'>>) {
   const darkMode = useSelector((state: RootState) => state.theme.darkMode);
   const dispatch: AppDispatch = useDispatch();
   const residentNames = useSelector(
@@ -33,7 +33,7 @@ function Planet({
   const handleRowClick = () => {
     setOpen(!open);
     if (!open && residentNames[name] === undefined) {
-      dispatch(fetchResidents({ planetName: name, urls: residents }));
+      dispatch(fetchResidentsThunk({ planetName: name, urls: residents }));
     }
   };
 

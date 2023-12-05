@@ -8,8 +8,8 @@ import {
   Container,
   Typography,
 } from '@mui/material';
-import { fetchFilms } from '../../store/films/filmsSlice';
 import { AppDispatch, RootState } from '../../store/store';
+import { fetchFilmsThunk } from '../../store/films/filmsSlice';
 
 function Films() {
   const dispatch: AppDispatch = useDispatch();
@@ -17,7 +17,7 @@ function Films() {
 
   useEffect(() => {
     if (films.length === 0) {
-      dispatch(fetchFilms());
+      dispatch(fetchFilmsThunk());
     }
   }, [dispatch, films]);
 
