@@ -1,6 +1,5 @@
-import React from 'react';
-import MainLayout from '../../layouts/MainLayout';
-import Films from '../../components/Films';
+import MainLayout from '@layouts/MainLayout';
+import Films from '@components/Films';
 
 function FilmsRoute() {
   return (

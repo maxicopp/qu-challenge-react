@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchPeople } from '../../api/peopleApi';
+import { fetchPeople } from '@api/peopleApi';
 
 export interface Person {
   name: string;

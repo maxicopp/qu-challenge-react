@@ -14,8 +14,8 @@ import {
   CircularProgress,
   Box,
 } from '@mui/material';
-import { AppDispatch, RootState } from '../../store/store';
-import { fetchPeopleThunk } from '../../store/people/peopleSlice';
+import { AppDispatch, RootState } from '@store/store';
+import { fetchPeopleThunk } from '@store/people/peopleSlice';
 
 function People() {
   const dispatch: AppDispatch = useDispatch();

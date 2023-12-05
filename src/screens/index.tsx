@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LoadingLayout from './LoadingLayout';
-import { useAppLogic } from '../hooks/useAppLogic';
-import { routes } from '../constants/routes';
+import { useAppLogic } from '@hooks/useAppLogic';
+import { routes } from '@constants/routes';
 
 function App() {
   const { loading, initialLoad } = useAppLogic();

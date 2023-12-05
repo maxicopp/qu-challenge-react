@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { SelectChangeEvent } from '@mui/material';
 import { useSelector } from 'react-redux';
-import { PlanetData } from '../../interfaces/PlanetData';
+import { PlanetData } from '@interfaces/PlanetData';
 import { usePlanets } from '../usePlanets';
 import { useFilteredPlanets } from '../useFilteredPlanets';
-import { RootState } from '../../store/store';
-import { PlanetDataKeys } from '../../interfaces/PlanetDataKeys';
+import { RootState } from '@store/store';
+import { PlanetDataKeys } from '@interfaces/PlanetDataKeys';
 
 export function useAppLogic() {
   const [search, setSearch] = useState('');

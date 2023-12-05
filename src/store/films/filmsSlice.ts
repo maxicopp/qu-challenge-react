@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchFilms } from '../../api/filmsApi';
+import { fetchFilms } from '@api/filmsApi';
 
 export interface Film {
   title: string;

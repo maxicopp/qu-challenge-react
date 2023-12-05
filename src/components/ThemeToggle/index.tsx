@@ -1,8 +1,8 @@
 import { Brightness4, Brightness7 } from '@mui/icons-material';
 import { IconButton, Tooltip } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../store/store';
-import { toggleTheme } from '../../store/theme/themeSlice';
+import { RootState } from '@store/store';
+import { toggleTheme } from '@store/theme/themeSlice';
 
 function ThemeToggle() {
   const dispatch = useDispatch();

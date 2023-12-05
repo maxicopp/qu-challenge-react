@@ -1,6 +1,5 @@
-import React from 'react';
-import MainLayout from '../../layouts/MainLayout';
-import People from '../../components/People';
+import MainLayout from '@layouts/MainLayout';
+import People from '@components/People';
 
 function PeopleRoute() {
   return (

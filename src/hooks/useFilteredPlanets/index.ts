@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { PlanetData } from '../../interfaces/PlanetData';
+import { PlanetData } from '@interfaces/PlanetData';
 
 export function useFilteredPlanets(
   search: string,

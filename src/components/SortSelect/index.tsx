@@ -1,7 +1,6 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { MenuItem, Select, SelectChangeEvent } from '@mui/material';
-import { PlanetDataKeys } from '../../interfaces/PlanetDataKeys';
+import { PlanetDataKeys } from '@interfaces/PlanetDataKeys';
 
 interface SortSelectProps {
   sortKey: PlanetDataKeys;

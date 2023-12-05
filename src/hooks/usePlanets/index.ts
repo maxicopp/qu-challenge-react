@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../../store/store';
+import { AppDispatch, RootState } from '@store/store';
 import { AsyncThunkAction } from '@reduxjs/toolkit';
-import { PlanetData } from '../../interfaces/PlanetData';
-import { fetchPlanetsThunk } from '../../store/planets/planetsSlice';
+import { PlanetData } from '@interfaces/PlanetData';
+import { fetchPlanetsThunk } from '@store/planets/planetsSlice';
 
 export function usePlanets() {
   const dispatch: AppDispatch = useDispatch();

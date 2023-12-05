@@ -14,8 +14,8 @@ import {
   Paper,
   Typography,
 } from '@mui/material';
-import { AppDispatch, RootState } from '../../store/store';
-import { fetchFilmsThunk } from '../../store/films/filmsSlice';
+import { AppDispatch, RootState } from '@store/store';
+import { fetchFilmsThunk } from '@store/films/filmsSlice';
 
 function Films() {
   const { t } = useTranslation();

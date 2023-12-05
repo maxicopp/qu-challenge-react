@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { PlanetData } from '../../interfaces/PlanetData';
-import { fetchPlanets, fetchResidents } from '../../api/planetsApi';
+import { PlanetData } from '@interfaces/PlanetData';
+import { fetchPlanets, fetchResidents } from '@api/planetsApi';
 
 interface PlanetsState {
   planets: PlanetData[];

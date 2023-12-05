@@ -13,9 +13,9 @@ import {
   ListItem,
   ListItemText,
 } from '@mui/material';
-import { AppDispatch, RootState } from '../../store/store';
-import { PlanetProps } from '../../interfaces/PlanetProps';
-import { fetchResidentsThunk } from '../../store/planets/planetsSlice';
+import { AppDispatch, RootState } from '@store/store';
+import { PlanetProps } from '@interfaces/PlanetProps';
+import { fetchResidentsThunk } from '@store/planets/planetsSlice';
 
 function Planet({
   name,

@@ -13,7 +13,9 @@ function SearchBar({ search, setSearch }: Readonly<SearchBarProps>) {
     <TextField
       label={t('search')}
       value={search}
-      onChange={(e) => setSearch(e.target.value)}
+      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+        setSearch(e.target.value)
+      }
       InputProps={{
         startAdornment: (
           <InputAdornment position="start">

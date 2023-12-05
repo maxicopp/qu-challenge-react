@@ -1,7 +1,6 @@
-import React from 'react';
-import { useAppLogic } from '../../hooks/useAppLogic';
-import MainLayout from '../../layouts/MainLayout';
-import PlanetTable from '../../components/PlanetTable';
+import { useAppLogic } from '@hooks/useAppLogic';
+import MainLayout from '@layouts/MainLayout';
+import PlanetTable from '@components/PlanetTable';
 
 function PlanetsRoute() {
   const { search, setSearch, sortKey, handleSortKeyChange, sortedPlanets } =

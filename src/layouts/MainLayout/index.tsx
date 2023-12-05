@@ -13,12 +13,12 @@ import {
   Select,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import Layout from '../../components/Layout';
-import SearchBar from '../../components/SearchBar';
-import ThemeToggle from '../../components/ThemeToggle';
-import SortSelect from '../../components/SortSelect';
-import { PlanetDataKeys } from '../../interfaces/PlanetDataKeys';
-import { RootState } from '../../store/store';
+import Layout from '@components/Layout';
+import SearchBar from '@components/SearchBar';
+import ThemeToggle from '@components/ThemeToggle';
+import SortSelect from '@components/SortSelect';
+import { PlanetDataKeys } from '@interfaces/PlanetDataKeys';
+import { RootState } from '@store/store';
 
 import styles from './styles';
 

@@ -1,5 +1,5 @@
 import { Box, CircularProgress } from '@mui/material';
-import Layout from '../../components/Layout';
+import Layout from '@components/Layout';
 
 function LoadingLayout() {
   return (

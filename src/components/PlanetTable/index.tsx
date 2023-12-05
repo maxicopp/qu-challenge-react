@@ -13,9 +13,9 @@ import {
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import Planet from '../Planet';
-import { PlanetData } from '../../interfaces/PlanetData';
+import { PlanetData } from '@interfaces/PlanetData';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../store/store';
+import { RootState } from '@store/store';
 
 interface PlanetTableProps {
   filteredPlanets: PlanetData[];
