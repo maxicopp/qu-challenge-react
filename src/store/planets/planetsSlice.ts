@@ -5,7 +5,8 @@ import { fetchPlanets, fetchResidents } from '../../api/planetsApi';
 interface PlanetsState {
   planets: PlanetData[];
   residentNames: Record<string, string[]>;
-  loading: boolean;
+  loadingPlanets: boolean;
+  loadingResidentPlanet: string | null;
   pendingRequests: number;
   initialLoad: boolean;
 }
@@ -23,7 +24,8 @@ export const fetchResidentsThunk = createAsyncThunk(
 const initialState: PlanetsState = {
   planets: [],
   residentNames: {},
-  loading: false,
+  loadingPlanets: false,
+  loadingResidentPlanet: null,
   pendingRequests: 0,
   initialLoad: false,
 };
@@ -41,31 +43,31 @@ const planetsSlice = createSlice({
     builder
       .addCase(fetchPlanetsThunk.pending, (state) => {
         state.pendingRequests += 1;
-        state.loading = state.pendingRequests > 0;
+        state.loadingPlanets = state.pendingRequests > 0;
       })
       .addCase(fetchPlanetsThunk.fulfilled, (state, action) => {
         state.planets = action.payload;
         state.pendingRequests -= 1;
-        state.loading = state.pendingRequests > 0;
+        state.loadingPlanets = state.pendingRequests > 0;
         state.initialLoad = true;
       })
       .addCase(fetchPlanetsThunk.rejected, (state) => {
         state.pendingRequests -= 1;
-        state.loading = state.pendingRequests > 0;
+        state.loadingPlanets = state.pendingRequests > 0;
       })
-      .addCase(fetchResidentsThunk.pending, (state) => {
+      .addCase(fetchResidentsThunk.pending, (state, action) => {
         state.pendingRequests += 1;
-        state.loading = state.pendingRequests > 0;
+        state.loadingResidentPlanet = action.meta.arg.planetName;
       })
       .addCase(fetchResidentsThunk.fulfilled, (state, action) => {
         state.residentNames[action.payload.planetName] =
           action.payload.residentNames;
         state.pendingRequests -= 1;
-        state.loading = state.pendingRequests > 0;
+        state.loadingResidentPlanet = null;
       })
       .addCase(fetchResidentsThunk.rejected, (state) => {
         state.pendingRequests -= 1;
-        state.loading = state.pendingRequests > 0;
+        state.loadingResidentPlanet = null;
       });
   },
 });

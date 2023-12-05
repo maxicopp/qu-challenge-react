@@ -7,7 +7,7 @@ import { fetchPlanetsThunk } from '../../store/planets/planetsSlice';
 
 export function usePlanets() {
   const dispatch: AppDispatch = useDispatch();
-  const { planets, loading, initialLoad } = useSelector(
+  const { planets, initialLoad, loadingPlanets } = useSelector(
     (state: RootState) => state.planets
   );
 
@@ -19,5 +19,5 @@ export function usePlanets() {
     }
   }, [dispatch, initialLoad]);
 
-  return { planets, loading };
+  return { planets, loading: loadingPlanets };
 }

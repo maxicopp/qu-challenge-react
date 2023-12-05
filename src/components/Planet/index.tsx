@@ -29,6 +29,9 @@ function Planet({
   const residentNames = useSelector(
     (state: RootState) => state.planets.residentNames
   );
+  const loadingResidentPlanet = useSelector(
+    (state: RootState) => state.planets.loadingResidentPlanet
+  );
   const [open, setOpen] = useState(false);
   const [hover, setHover] = useState(false);
 
@@ -56,7 +59,7 @@ function Planet({
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
-            {residentNames[name] === undefined && <LinearProgress />}
+            {loadingResidentPlanet === name && <LinearProgress />}
             {residentNames[name]?.length === 0 && (
               <Paper
                 style={{
