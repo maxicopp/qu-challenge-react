@@ -29,7 +29,7 @@ function Films() {
   }, [dispatch, films]);
 
   return (
-    <Container>
+    <Container data-testid="films-component">
       <Typography variant="h2">{t('films')}</Typography>
       {loading ? (
         <Box

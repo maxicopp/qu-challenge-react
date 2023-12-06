@@ -30,7 +30,7 @@ function People() {
   }, [dispatch, people]);
 
   return (
-    <Container>
+    <Container data-testid="people-component">
       <Typography variant="h2">{t('people')}</Typography>
       {loading ? (
         <Box
@@ -38,6 +38,7 @@ function People() {
           justifyContent="center"
           alignItems="center"
           height="100vh"
+          data-testid="loading-indicator"
         >
           <CircularProgress />
         </Box>
