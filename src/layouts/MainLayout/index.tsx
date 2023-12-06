@@ -48,10 +48,10 @@ function MainLayout({
             <MenuItems />
           </Menu>
           <SearchAndSort
-            search={search || ''}
-            setSearch={setSearch || (() => {})}
-            sortKey={sortKey || ''}
-            handleSortKeyChange={handleSortKeyChange || (() => {})}
+            search={search}
+            setSearch={setSearch}
+            sortKey={sortKey}
+            handleSortKeyChange={handleSortKeyChange}
           />
           <Box marginLeft={'auto'}>
             <Box display="flex" alignItems="center">

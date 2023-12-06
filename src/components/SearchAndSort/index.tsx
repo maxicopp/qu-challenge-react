@@ -7,10 +7,10 @@ import SortSelect from '../SortSelect';
 import styles from './styles';
 
 interface SearchAndSortProps {
-  search: string;
-  setSearch: Dispatch<SetStateAction<string>>;
-  sortKey: PlanetDataKeys;
-  handleSortKeyChange: (event: SelectChangeEvent<string>) => void;
+  search?: string;
+  setSearch?: Dispatch<SetStateAction<string>>;
+  sortKey?: PlanetDataKeys;
+  handleSortKeyChange?: (event: SelectChangeEvent<string>) => void;
 }
 
 function SearchAndSort({
