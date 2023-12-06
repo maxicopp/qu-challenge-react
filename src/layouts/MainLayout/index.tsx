@@ -1,36 +1,14 @@
-import React, { useState, Dispatch, ReactNode, SetStateAction } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
-import {
-  Box,
-  SelectChangeEvent,
-  AppBar,
-  Toolbar,
-  IconButton,
-  Menu,
-  MenuItem,
-  Select,
-} from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
-import Layout from '@components/Layout';
-import SearchBar from '@components/SearchBar';
-import ThemeToggle from '@components/ThemeToggle';
-import SortSelect from '@components/SortSelect';
-import { PlanetDataKeys } from '@interfaces/PlanetDataKeys';
+import { AppBar, Toolbar, IconButton, Menu, Box } from '@mui/material';
+import { MainLayoutProps } from '@interfaces/MainLayoutProps';
 import { RootState } from '@store/store';
-
-import styles from './styles';
-
-const DEFAULT_LANG = 'en';
-
-interface MainLayoutProps {
-  search?: string;
-  setSearch?: Dispatch<SetStateAction<string>>;
-  sortKey?: PlanetDataKeys;
-  handleSortKeyChange?: (event: SelectChangeEvent<string>) => void;
-  children: ReactNode;
-}
+import LanguageSelector from '@components/LanguageSelector';
+import Layout from '@components/Layout';
+import MenuIcon from '@mui/icons-material/Menu';
+import MenuItems from '@components/MenuItems';
+import SearchAndSort from '@components/SearchAndSort';
+import ThemeToggle from '@components/ThemeToggle';
 
 function MainLayout({
   search,
@@ -39,14 +17,8 @@ function MainLayout({
   handleSortKeyChange,
   children,
 }: Readonly<MainLayoutProps>) {
-  const { t, i18n } = useTranslation();
-  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const isDarkMode = useSelector((state: RootState) => state.theme.darkMode);
-  const initialLang = ['en', 'es'].includes(i18n.language)
-    ? i18n.language
-    : DEFAULT_LANG;
-  const [lang, setLang] = useState(initialLang);
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -54,18 +26,6 @@ function MainLayout({
 
   const handleMenuClose = () => {
     setAnchorEl(null);
-  };
-
-  const handleMenuItemClick = (path: string) => {
-    navigate(path);
-    handleMenuClose();
-  };
-
-  const handleLangChange = (event: SelectChangeEvent) => {
-    const newLang = event.target.value;
-    setLang(newLang);
-    i18n.changeLanguage(newLang);
-    localStorage.setItem('i18nextLng', newLang);
   };
 
   return (
@@ -85,37 +45,17 @@ function MainLayout({
             open={Boolean(anchorEl)}
             onClose={handleMenuClose}
           >
-            <MenuItem onClick={() => handleMenuItemClick('/planets')}>
-              {t('planets')}
-            </MenuItem>
-            <MenuItem onClick={() => handleMenuItemClick('/films')}>
-              {t('films')}
-            </MenuItem>
-            <MenuItem onClick={() => handleMenuItemClick('/people')}>
-              {t('people')}
-            </MenuItem>
+            <MenuItems />
           </Menu>
-          <Box sx={styles.boxStyles}>
-            {search !== undefined && setSearch !== undefined && (
-              <Box marginRight={2}>
-                <SearchBar search={search} setSearch={setSearch} />
-              </Box>
-            )}
-            {sortKey !== undefined && handleSortKeyChange !== undefined && (
-              <Box>
-                <SortSelect
-                  sortKey={sortKey}
-                  handleSortKeyChange={handleSortKeyChange}
-                />
-              </Box>
-            )}
-          </Box>
+          <SearchAndSort
+            search={search || ''}
+            setSearch={setSearch || (() => {})}
+            sortKey={sortKey || ''}
+            handleSortKeyChange={handleSortKeyChange || (() => {})}
+          />
           <Box marginLeft={'auto'}>
             <Box display="flex" alignItems="center">
-              <Select value={lang} onChange={handleLangChange}>
-                <MenuItem value="en">🇺🇸</MenuItem>
-                <MenuItem value="es">🇦🇷</MenuItem>
-              </Select>
+              <LanguageSelector />
               <ThemeToggle />
             </Box>
           </Box>

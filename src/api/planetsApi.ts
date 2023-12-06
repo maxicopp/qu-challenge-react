@@ -1,5 +1,5 @@
-import { PlanetData } from '../interfaces/PlanetData';
-import { Planet, PlanetsResponse } from '../interfaces/PlanetsResponse';
+import { PlanetData } from '@interfaces/PlanetData';
+import { Planet, PlanetsResponse } from '@interfaces/PlanetsResponse';
 
 export const fetchPlanets = async (): Promise<PlanetData[]> => {
   const response = await fetch('https://swapi.dev/api/planets/');

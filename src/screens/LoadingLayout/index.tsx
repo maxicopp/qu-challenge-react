@@ -1,17 +1,12 @@
 import { Box, CircularProgress } from '@mui/material';
 import Layout from '@components/Layout';
 
+import styles from './styles';
+
 function LoadingLayout() {
   return (
     <Layout>
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: '100vh',
-        }}
-      >
+      <Box sx={styles.loadingContainer}>
         <CircularProgress />
       </Box>
     </Layout>

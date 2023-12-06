@@ -1,22 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchFilms } from '@api/filmsApi';
-
-export interface Film {
-  title: string;
-  episode_id: number;
-  opening_crawl: string;
-  director: string;
-  producer: string;
-  release_date: string;
-  characters: string[];
-  planets: string[];
-  starships: string[];
-  vehicles: string[];
-  species: string[];
-  created: string;
-  edited: string;
-  url: string;
-}
+import { Film } from '@interfaces/Film';
 
 export interface FilmsState {
   films: Film[];
